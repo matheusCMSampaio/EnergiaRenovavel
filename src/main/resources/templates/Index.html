@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo</title>
+</head>
+<body>
+<h1>Bem-vindo ao Sistema de Energia Renovável!</h1>
+
+<div>
+    <p>Olá, <span th:text="${nome_usuario}">Usuário</span>! Você está autenticado.</p>
+    <a th:href="@{/logout}">Sair</a>
+</div>
+
+
+<div th:if="${#authentication.principal == null}">
+    <p>Você não está autenticado. <a href="/login">Faça login aqui</a>.</p>
+</div>
+</body>
+</html>

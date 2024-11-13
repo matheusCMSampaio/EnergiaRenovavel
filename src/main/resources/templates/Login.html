@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        /* Estilos básicos do corpo e centralização do conteúdo */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2A0D4F, #3A3085);
+            color: #FFFFFF;
+            flex-direction: column;
+        }
+
+        /* Posiciona a imagem no canto superior direito */
+        .top-right-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 110px; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-container img.logo {
+            width: 350px;
+            margin-bottom: 10px;
+        }
+
+        .logo-container h1 {
+            font-size: 32px;
+            margin: 0;
+            color: #FFFFFF;
+        }
+
+        .login-container {
+            width: 350px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+            background-color: #2A0D4F;
+            color: #FFFFFF;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #AAC943;
+            border: none;
+            border-radius: 8px;
+            color: #114F18;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .login-btn:hover {
+            background-color: #8bb91b;
+        }
+
+        .forgot-password {
+            display: block;
+            margin-top: 15px;
+            color: #AAC943;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 400px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .logo-container img.logo {
+                width: 120px;
+            }
+
+            .logo-container h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Imagem posicionada no canto superior direito -->
+<img src="https://s3-alpha-sig.figma.com/img/fb12/fd24/7fb35c8b49f450982fee3df7abe8edce?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kNiq2UKy83Tl9CUq3EaXhBlCcUquLPfzoXWYeI7aEsWwifYQSLNIwfiiW32LoZVGwTOuXjQX-H1z3sAnAl6Mo3rlyYRk2FujaJHBk6nGT6FHYLrqk1wt5zxlgp70ZEeXqLkXVOjQ1WudDqZEHHFDtPtPg8aIIQxLDnNzheM8a5XR24A1vh3dYERZgjVd-b-rw0kEZsB1iHZzGhReVwrbAP6YHvmOT5gk8kT3wXmgUcyd30ZI-L89egBGI87VPUAkwkUlLMAyPsRHYEXFg~PHs1g8FUj5heZX8auqVLVYqWALTy0oPlwedc282pOIziVcDKdia8p4rWukG3u7LWMJsA__" alt="Icon" class="top-right-icon">
+
+<!-- Container da Logo e Título -->
+<div class="logo-container">
+    <h1 style="padding: 20px">Login.</h1>
+    <img src="https://s3-alpha-sig.figma.com/img/a3f5/227b/b504457594aef1a0f1c68cd797cd2430?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=m22g9N53MHwSX98rF0RcqVRcLdtTlLXJ9MyISyOHmCT975NAH3BTlba2-GQ1diVW0xmOD1sjYiFYAATNruFZ6OUpX-OxJSIddLgTZHXfu6u3Wia100q5miEPRsjmhfNxDZ3E6bQK7b1VUuGTzW9cnhd03VAtxCEJ56JnXt2cZwEPIQuxOhdjw23qX0Y-39oHSMVynEFEXgqgo3Ja3ww5EB3WXtx52ZPZNRFyUB5uwHXakJFhWWRp5uNV-oLt0DbCKAkeyzTmfWOaFMxz9D5gsu2HPKHqFpR07WRGrRv5qeV7zr6fA-IBM~XjuPJFH6E~te9vCFbwt88EecvFO4Rsig__" alt="Logo" class="logo">
+</div>
+
+<!-- Container do Formulário de Login -->
+<div class="login-container">
+    <form th:action="@{/Login}" method="post">
+        <div class="input-group">
+            <input type="text" id="username" name="username" placeholder="E-mail" required>
+        </div>
+        <div class="input-group">
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+        </div>
+        <button type="submit" class="login-btn">ENTRAR</button>
+    </form>
+
+
+    <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+</div>
+</body>
+</html>
