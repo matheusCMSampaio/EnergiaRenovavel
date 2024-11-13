@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{user.list.title}">Lista de Usuários</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3A3085; /* Cor de fundo da paleta */
+            color: #FFFFFF; /* Cor do texto */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #2A0D4F; /* Cor do cabeçalho da paleta */
+            color: #FFFFFF;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        header h2 {
+            margin: 0;
+        }
+        table {
+            width: 90%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            background-color: #FFFFFF;
+            color: #3A3085; /* Cor do texto na tabela */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+        thead {
+            background-color: #AAC943; /* Cor do cabeçalho da tabela da paleta */
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        th {
+            font-weight: bold;
+            color: #FFFFFF; /* Cor do texto do cabeçalho da tabela */
+        }
+        tbody tr:nth-child(even) {
+            background-color: #F2F2F2;
+        }
+        tbody tr:hover {
+            background-color: #E9ECEF;
+        }
+        a {
+            color: #114F18; /* Verde escuro para links */
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #AAC943;
+            color: white;
+        }
+        .add-button {
+            background-color: #AAC943; /* Botão de adicionar com cor da paleta */
+            color: #FFFFFF;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        .add-button:hover {
+            background-color: #114F18;
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+            .add-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 8px;
+            }
+            .add-button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2 th:text="#{user.list.title}">Lista de Usuários</h2>
+</header>
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{user.id}">ID</th>
+        <th th:text="#{user.name}">Nome</th>
+        <th th:text="#{user.email}">Email</th>
+        <th th:text="#{user.notificacoesAtivas}">Notificação</th>
+        <th th:text="#{user.phone}">Telefone</th>
+        <th th:text="#{user.password}">Senha</th>
+        <th th:text="#{user.actions}">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.idUsuario}"></td>
+        <td th:text="${usuario.nome}"></td>
+        <td th:text="${usuario.email}"></td>
+        <td th:text="${usuario.notificacoesAtivas}"></td>
+        <td th:text="${usuario.telefone}"></td>
+        <td th:text="${usuario.senha}"></td>
+        <td>
+            <a th:href="@{/user/edit/{id}(id=${usuario.idUsuario})}" th:text="#{user.edit}">Editar</a>
+            <a th:href="@{/user/delete/{id}(id=${usuario.idUsuario})}" th:text="#{user.delete}" onclick="return confirm('#{user.delete.confirm}')">Excluir</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/user/new" class="add-button" th:text="#{user.add}">Adicionar Novo Usuário</a>
+</body>
+</html>

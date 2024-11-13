@@ -23,29 +23,32 @@ public class Login {
     public String login(){
         return "Login";
     }
-//    @PostMapping("/Login")
-//    public String loginPost() {
-//        return "redirect:/Index"; // Redireciona após o login, caso necessário
-//    }
+
     @GetMapping("/Index")
     public ModelAndView index() {
+        // Obtém a autenticação do contexto de segurança
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName(); // Obtém o email do usuário autenticado
         System.out.println("Email autenticado: " + email); // Depuração
 
-        ModelAndView mv = new ModelAndView("index");
+        ModelAndView mv = new ModelAndView("Index");
 
+        // Busca o usuário pelo email
         Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+
         if (usuario.isPresent()) {
-            String nome = usuario.get().getNome();
-            mv.addObject("nome_usuario", nome);
-            System.out.println("Nome do usuário: " + nome); // Depuração
+            // Adiciona o nome do usuário no ModelAndView
+            mv.addObject("nome_usuario", usuario.get().getNome());
+            System.out.println("Nome do usuário: " + usuario.get().getNome()); // Depuração
         } else {
-            System.out.println("Usuário não encontrado com o email: " + email);
+            System.out.println("Usuário não encontrado com o email: " + email); // Depuração
+            // Você pode redirecionar para uma página de erro ou exibir uma mensagem
+            mv.addObject("mensagemErro", "Usuário não encontrado.");
         }
 
         return mv;
     }
+
 
 
 

@@ -2,19 +2,101 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bem-vindo</title>
+    <title th:text="#{index.title}">Índice de CRUD</title>
+    <style>
+        /* Geral */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2A0D4F; /* Roxo escuro */
+            color: #FFFFFF; /* Branco */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #3A3085; /* Roxo médio */
+            color: #FFFFFF;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Bandeiras de idiomas */
+        .flags {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .flags a {
+            margin-left: 10px;
+        }
+        .flags img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 600px;
+            padding: 30px;
+            background-color: #3F3D56; /* Cinza escuro */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Links de navegação */
+        nav a {
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            color: #AAC943; /* Verde claro */
+            font-size: 18px;
+            padding: 12px 20px;
+            border: 2px solid #AAC943;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #AAC943;
+            color: #3A3085; /* Roxo médio */
+        }
+
+        /* Título da página */
+        h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-<h1>Bem-vindo ao Sistema de Energia Renovável!</h1>
-
-<div>
-    <p>Olá, <span th:text="${nome_usuario}">Usuário</span>! Você está autenticado.</p>
-    <a th:href="@{/logout}">Sair</a>
-</div>
-
-
-<div th:if="${#authentication.principal == null}">
-    <p>Você não está autenticado. <a href="/login">Faça login aqui</a>.</p>
+<header>
+    <h1 th:text="#{index_header}">Índice de CRUD</h1>
+    <p>Olá, <span th:text="${nome_usuario}">Usuário</span>! Bem-vindo ao sistema.</p>
+    <div class="flags">
+        <a href="/?lang=pt" title="Português">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" alt="Português">
+        </a>
+        <a href="/?lang=en" title="English">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English">
+        </a>
+    </div>
+</header>
+<div class="container">
+    <nav>
+        <a href="/user/list" th:text="#{index.clients}">Clientes</a>
+        <a href="/produto/list" th:text="#{index.products}">Produtos</a>
+    </nav>
 </div>
 </body>
 </html>
