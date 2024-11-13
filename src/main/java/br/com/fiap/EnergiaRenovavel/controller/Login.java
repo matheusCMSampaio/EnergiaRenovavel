@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
@@ -31,7 +29,7 @@ public class Login {
         String email = auth.getName(); // Obtém o email do usuário autenticado
         System.out.println("Email autenticado: " + email); // Depuração
 
-        ModelAndView mv = new ModelAndView("Index");
+        ModelAndView mv = new ModelAndView("index");
 
         // Busca o usuário pelo email
         Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
