@@ -14,7 +14,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) ->
-                        requests.requestMatchers("/retornaUsuario")
+                        requests
+                                .requestMatchers("/api/user", "/api/user/all", "/api/user/{id}", "/api/user/save", "/api/user/delete/{id}", "/api/user/update/{id}")  // Endpoints de usuário
+                                .hasAuthority("ROLE_ADMIN")
+                                .requestMatchers("/api/dispositivo", "/api/dispositivo/all", "/api/dispositivo/{id}", "/api/dispositivo/save", "/api/dispositivo/delete/{id}", "/api/dispositivo/update/{id}") // Endpoints de dispositivo
                                 .hasAuthority("ROLE_ADMIN")
                                 .anyRequest()
                                 .authenticated())
@@ -33,6 +36,8 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 
 
     @Bean
