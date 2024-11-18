@@ -1,6 +1,7 @@
 package br.com.fiap.EnergiaRenovavel.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDateTime;
 
@@ -12,13 +13,25 @@ public class ConsumoEnergia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_consumo")
     private Long id;
-    @Column(name = "data_hora")
+
+    @NotNull(message = "A data e hora do consumo é obrigatória.")
+    @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
-    @Column(name = "consumo_kwh")
+
+    @NotNull(message = "O consumo em kWh é obrigatório.")
+    @Positive(message = "O consumo deve ser um valor positivo.")
+    @Column(name = "consumo_kwh", nullable = false)
     private String consumo;
-    @Column(name = "custo_estimado")
+
+    @NotNull(message = "O custo estimado é obrigatório.")
+    @PositiveOrZero(message = "O custo estimado não pode ser negativo.")
+    @Column(name = "custo_estimado", nullable = false)
     private String custoEstimado;
-    @Column(name = "status_consumo")
+
+    @NotBlank(message = "O status do consumo é obrigatório.")
+    @Pattern(regexp = "^(normal|alto|critico)$",
+            message = "O status deve ser 'normal', 'alto' ou 'critico'.")
+    @Column(name = "status_consumo", nullable = false)
     private String status;
 
     public ConsumoEnergia() {

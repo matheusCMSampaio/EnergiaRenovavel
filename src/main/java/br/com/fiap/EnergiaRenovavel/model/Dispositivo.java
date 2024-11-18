@@ -1,6 +1,7 @@
 package br.com.fiap.EnergiaRenovavel.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 
@@ -12,13 +13,27 @@ public class Dispositivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dispo")
     private Long id;
+
+    @NotBlank(message = "O nome do dispositivo é obrigatório.")
+    @Size(max = 100, message = "O nome do dispositivo deve ter no máximo 100 caracteres.")
     @Column(name = "nome_dispo")
     private String nome;
+
+    @NotBlank(message = "O tipo do dispositivo é obrigatório.")
+    @Size(max = 50, message = "O tipo do dispositivo deve ter no máximo 50 caracteres.")
     @Column(name = "tipo_dispo")
     private String tipo;
+
+    @NotBlank(message = "O status do dispositivo é obrigatório.")
+    @Pattern(regexp = "^(ativo|inativo|manutencao)$",
+            message = "O status deve ser 'ativo', 'inativo' ou 'manutencao'.")
     @Column(name = "status")
     private String status;
+
+    @NotNull(message = "A data de instalação é obrigatória.")
+    @PastOrPresent(message = "A data de instalação deve ser no passado ou no presente.")
     @Column(name = "data_instalacao")
+    @Temporal(TemporalType.DATE)
     private Date dataInstalacao;
 
     public Dispositivo() {

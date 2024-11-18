@@ -1,6 +1,7 @@
 package br.com.fiap.EnergiaRenovavel.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 
 import java.util.HashSet;
@@ -15,14 +16,28 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long idUsuario;
+
+    @NotBlank(message = "O nome não pode estar vazio.")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres.")
     @Column(name = "nome")
     private String nome;
-    @Column(name = "email")
+
+    @NotBlank(message = "O email é obrigatório.")
+    @Email(message = "Informe um email válido.")
+    @Size(max = 150, message = "O email deve ter no máximo 150 caracteres.")
+    @Column(name = "email", unique = true)
     private String email;
+
+    @NotBlank(message = "A senha é obrigatória.")
+    @Size(min = 6, message = "A senha deve ter no mínimo 6 caracteres.")
     @Column(name = "senha")
     private String senha;
+
+    @Pattern(regexp = "\\d{10,15}", message = "O telefone deve conter apenas números e ter entre 10 e 15 dígitos.")
     @Column(name = "telefone")
     private String telefone;
+
+    @NotNull(message = "O campo notificações ativas não pode ser nulo.")
     @Column(name = "notificacoes_ativas")
     private Boolean notificacoesAtivas;
 
@@ -34,7 +49,6 @@ public class Usuario {
     )
     private Set<Role> roles = new HashSet<>();
 
-    // Getters e setters
 
     public Long getIdUsuario() {
         return idUsuario;

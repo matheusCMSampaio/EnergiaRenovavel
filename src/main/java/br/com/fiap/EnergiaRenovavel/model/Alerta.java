@@ -1,6 +1,8 @@
 package br.com.fiap.EnergiaRenovavel.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 
@@ -12,9 +14,15 @@ public class Alerta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_alerta")
     private Long id;
-    @Column(name = "tipo_alerta")
+
+    @NotBlank(message = "O tipo de alerta é obrigatório.")
+    @Size(max = 50, message = "O tipo de alerta deve ter no máximo 50 caracteres.")
+    @Column(name = "tipo_alerta", nullable = false)
     private String tipoAlerta;
-    @Column(name = "mensagem")
+
+    @NotBlank(message = "A mensagem do alerta é obrigatória.")
+    @Size(max = 255, message = "A mensagem deve ter no máximo 255 caracteres.")
+    @Column(name = "mensagem", nullable = false)
     private String mensagem;
 
     public Alerta() {

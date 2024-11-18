@@ -1,5 +1,6 @@
 package br.com.fiap.EnergiaRenovavel.controller;
 
+import br.com.fiap.EnergiaRenovavel.mensageria.ProdutorKafka;
 import br.com.fiap.EnergiaRenovavel.model.Usuario;
 import br.com.fiap.EnergiaRenovavel.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class UsuarioThymeleaf {
     private UsuarioRepository user;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
+    @Autowired
+    private ProdutorKafka produtorKafka;
 
 
     @GetMapping("/new")
@@ -39,7 +40,7 @@ public class UsuarioThymeleaf {
         user.save(usuario);
 
         String msg = "Usuário "+ usuario.getNome();
-//        produtorKafka.enviarMensagem(msg);
+        produtorKafka.enviarMensagem(msg);
         ModelAndView mv = new ModelAndView("redirect:/user/list");
         return mv;
     }
