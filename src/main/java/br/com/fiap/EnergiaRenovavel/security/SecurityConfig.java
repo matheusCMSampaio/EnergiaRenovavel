@@ -13,14 +13,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) ->
-                        requests
-                                .requestMatchers("/api/user", "/api/user/all", "/api/user/{id}", "/api/user/save", "/api/user/delete/{id}", "/api/user/update/{id}")  // Endpoints de usuário
-                                .hasAuthority("ROLE_ADMIN")
-                                .requestMatchers("/api/dispositivo", "/api/dispositivo/all", "/api/dispositivo/{id}", "/api/dispositivo/save", "/api/dispositivo/delete/{id}", "/api/dispositivo/update/{id}") // Endpoints de dispositivo
-                                .hasAuthority("ROLE_ADMIN")
-                                .anyRequest()
-                                .authenticated())
+                .csrf().disable() // Desabilite CSRF apenas se necessário
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/api/**").permitAll() // Permite todos os endpoints /api/
+                        .requestMatchers("/user/**").authenticated() // Requer login para /user/
+                        .anyRequest().permitAll() // Permite o restante, se necessário
+                )
                 .formLogin((form) -> form.loginPage("/Login")
                         .defaultSuccessUrl("/Index")
                         .failureUrl("/Login?falha=true")
@@ -36,8 +34,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
 
 
     @Bean
