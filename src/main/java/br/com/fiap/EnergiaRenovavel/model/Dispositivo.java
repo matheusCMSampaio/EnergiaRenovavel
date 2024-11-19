@@ -11,7 +11,7 @@ public class Dispositivo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_dispo")
+    @Column(name = "id_dispositivo")
     private Long id;
 
     @NotBlank(message = "O nome do dispositivo é obrigatório.")
@@ -21,7 +21,7 @@ public class Dispositivo {
 
     @NotBlank(message = "O tipo do dispositivo é obrigatório.")
     @Size(max = 50, message = "O tipo do dispositivo deve ter no máximo 50 caracteres.")
-    @Column(name = "tipo_dispo")
+    @Column(name = "tipo")
     private String tipo;
 
     @NotBlank(message = "O status do dispositivo é obrigatório.")

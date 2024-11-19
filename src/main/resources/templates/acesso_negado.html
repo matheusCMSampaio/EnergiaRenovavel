@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: cabecalho('Acesso Negado')}" />
+<body>
+	<div class="container">
+	
+	<h1><b>Acesso Negado</b></h1><br>
+	<a th:href="@{/retorna_lista_jogadores}" th:text="#{retorna_lista_jogadores}"></a>
+	</div>
+
+</body>
+</html>

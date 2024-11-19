@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}">Adicionar Novo Dispositivo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #3A3085;
+      color: #FFFFFF;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background-color: #2A0D4F;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h2 {
+      margin: 0;
+    }
+
+    form {
+      background-color: #3F3D56;
+      color: #FFFFFF;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    form h3 {
+      color: #AAC943;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #AAC943;
+      border-radius: 5px;
+      background-color: #FFFFFF;
+      color: #3A3085;
+    }
+
+    .form-group button {
+      width: 100%;
+      padding: 12px;
+      background-color: #AAC943;
+      color: #3A3085;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #114F18;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h2 th:text="${title}">Adicionar Novo Dispositivo</h2>
+</header>
+<form id="deviceForm" th:action="@{/dispositivo/save}" th:object="${dispositivo}" method="post">
+  <h3>Detalhes do Dispositivo</h3>
+  <div class="form-group">
+    <label for="nome_dispo">Nome do Dispositivo</label>
+    <input type="text" id="nome_dispo" th:field="*{nome}" placeholder="Digite o nome do dispositivo">
+  </div>
+  <div class="form-group">
+    <label for="tipo_dispo">Tipo do Dispositivo</label>
+    <input type="text" id="tipo_dispo" th:field="*{tipo}" placeholder="Digite o tipo do dispositivo">
+  </div>
+  <div class="form-group">
+    <label for="data_instalacao">Data de Instalação</label>
+    <input type="date" id="data_instalacao" th:field="*{dataInstalacao}">
+  </div>
+  <div class="form-group">
+    <label for="status">Status</label>
+    <select id="status" th:field="*{status}">
+      <option value="" disabled selected>Selecione o status</option>
+      <option value="Ativo">Ativo</option>
+      <option value="Inativo">Inativo</option>
+      <option value="Manutencao">Manutenção</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <button type="submit">Salvar</button>
+  </div>
+</form>
+</body>
+</html>

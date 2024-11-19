@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{user.add.title}">Adicionar Novo Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3A3085;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #2A0D4F;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        header h2 {
+            margin: 0;
+            color: #FFFFFF;
+        }
+        form {
+            background-color: #FFFFFF;
+            color: #3A3085;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+        }
+        form h3 {
+            color: #2A0D4F;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2A0D4F;
+        }
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #AAC943;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #3A3085;
+            background-color: #F9F9F9;
+        }
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #8bb91b;
+            outline: none;
+        }
+        .input-group .error {
+            color: #FF0000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .login-btn {
+            background-color: #AAC943;
+            color: #FFFFFF;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        .login-btn:hover {
+            background-color: #114F18;
+        }
+        @media (max-width: 768px) {
+            form {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2 th:text="#{user.add.title}">Adicionar Novo Usuário</h2>
+</header>
+<form id="userForm" th:action="@{/user/save}" method="post">
+    <div class="input-group">
+        <label for="nome">Nome</label>
+        <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite o nome"
+                th:value="${usuario?.nome}"
+                required
+                minlength="2"
+                maxlength="100"
+                oninvalid="this.setCustomValidity('O nome deve ter entre 2 e 100 caracteres e não pode estar vazio.')"
+                oninput="this.setCustomValidity('')">
+    </div>
+    <div class="input-group">
+        <label for="email">Email</label>
+        <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Digite o email"
+                th:value="${usuario?.email}"
+                required
+                maxlength="150"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                oninvalid="this.setCustomValidity('Informe um email válido.')"
+                oninput="this.setCustomValidity('')">
+    </div>
+    <div class="input-group">
+        <label for="senha">Senha</label>
+        <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Digite a senha"
+                th:value="${usuario?.senha}"
+                required
+                minlength="6"
+                oninvalid="this.setCustomValidity('A senha deve ter no mínimo 6 caracteres.')"
+                oninput="this.setCustomValidity('')">
+        <div id="senha-error" class="error"></div>
+    </div>
+    <div class="input-group">
+        <label for="telefone">Telefone</label>
+        <input
+                type="text"
+                id="telefone"
+                name="telefone"
+                placeholder="Digite o telefone"
+                th:value="${usuario?.telefone}"
+                required
+                maxlength="15"
+                oninvalid="this.setCustomValidity('O telefone deve conter apenas números e ter entre 10 e 15 dígitos.')"
+                oninput="this.setCustomValidity('')">
+    </div>
+    <div class="input-group">
+        <label for="notificacoesAtivas">Notificações Ativas</label>
+        <select
+                id="notificacoesAtivas"
+                name="notificacoesAtivas"
+                required
+                oninvalid="this.setCustomValidity('O campo notificações ativas não pode ser nulo.')"
+                oninput="this.setCustomValidity('')"
+                th:value="${usuario?.notificacoesAtivas}">
+            <option value="" disabled>Selecione...</option>
+            <option value="true" th:selected="${usuario?.notificacoesAtivas == true}">Sim</option>
+            <option value="false" th:selected="${usuario?.notificacoesAtivas == false}">Não</option>
+        </select>
+    </div>
+    <button type="submit" class="login-btn">Salvar</button>
+</form>
+<script>
+    // Máscara para telefone (somente 11 dígitos no formato (XX) XXXXX-XXXX)
+    document.getElementById('telefone').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limita a 11 dígitos
+        }
+        e.target.value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3").trim();
+    });
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+        var senha = document.getElementById('senha').value;
+        var errorDiv = document.getElementById('senha-error');
+        if (senha.length < 6) {
+            errorDiv.textContent = "A senha deve ter pelo menos 6 caracteres.";
+            event.preventDefault();
+        } else {
+            errorDiv.textContent = "";
+        }
+    });
+</script>
+</body>
+</html>

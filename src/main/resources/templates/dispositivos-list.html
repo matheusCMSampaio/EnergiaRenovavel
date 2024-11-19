@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Lista de Produtos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3A3085;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #2A0D4F;
+            color: #FFFFFF;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        header h2 {
+            margin: 0;
+            color: #FFFFFF;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #FFFFFF;
+            color: #3A3085;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        thead {
+            background-color: #2A0D4F;
+            color: #FFFFFF;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #F9F9F9;
+        }
+
+        tbody tr:hover {
+            background-color: #E9E7FD;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #2A0D4F;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        a:hover {
+            background-color: #AAC943;
+            color: #FFFFFF;
+        }
+
+        .add-button {
+            margin-top: 20px;
+            background-color: #AAC943;
+            color: #FFFFFF;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .add-button:hover {
+            background-color: #114F18;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2 th:text="${title}">Lista de Dispositivos</h2>
+</header>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Status</th>
+        <th>Data de Instalação</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dispositivo : ${dispositivos}">
+        <td th:text="${dispositivo.id}"></td>
+        <td th:text="${dispositivo.nome}"></td>
+        <td th:text="${dispositivo.tipo}"></td>
+        <td th:text="${dispositivo.status}"></td>
+        <td th:text="${#dates.format(dispositivo.dataInstalacao, 'dd/MM/yyyy')}"></td>
+        <td>
+            <a th:href="@{/dispositivo/edit/{id}(id=${dispositivo.id})}">Editar</a>
+            <a th:href="@{/dispositivo/delete/{id}(id=${dispositivo.id})}"
+               onclick="return confirm('Tem certeza que deseja excluir este dispositivo?')">Excluir</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/dispositivo/new}" class="add-button">Adicionar Novo Dispositivo</a>
+
+</body>
+</html>
