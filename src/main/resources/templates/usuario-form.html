@@ -148,8 +148,9 @@
                 placeholder="Digite o telefone"
                 th:value="${usuario?.telefone}"
                 required
-                maxlength="15"
-                oninvalid="this.setCustomValidity('O telefone deve conter apenas números e ter entre 10 e 15 dígitos.')"
+                maxlength="11"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                oninvalid="this.setCustomValidity('O telefone deve conter apenas números e ter no máximo 11 dígitos.')"
                 oninput="this.setCustomValidity('')">
     </div>
     <div class="input-group">
@@ -169,23 +170,9 @@
     <button type="submit" class="login-btn">Salvar</button>
 </form>
 <script>
-    // Máscara para telefone (somente 11 dígitos no formato (XX) XXXXX-XXXX)
     document.getElementById('telefone').addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-        if (value.length > 11) {
-            value = value.slice(0, 11); // Limita a 11 dígitos
-        }
-        e.target.value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3").trim();
-    });
-    document.getElementById('userForm').addEventListener('submit', function(event) {
-        var senha = document.getElementById('senha').value;
-        var errorDiv = document.getElementById('senha-error');
-        if (senha.length < 6) {
-            errorDiv.textContent = "A senha deve ter pelo menos 6 caracteres.";
-            event.preventDefault();
-        } else {
-            errorDiv.textContent = "";
-        }
+        e.target.value = value.slice(0, 11); // Limita a 11 dígitos
     });
 </script>
 </body>

@@ -33,7 +33,7 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
-    @Pattern(regexp = "\\d{10,15}", message = "O telefone deve conter apenas números e ter entre 10 e 15 dígitos.")
+    @Pattern(regexp = "\\d{11}", message = "O telefone deve conter exatamente 11 dígitos.")
     @Column(name = "telefone")
     private String telefone;
 

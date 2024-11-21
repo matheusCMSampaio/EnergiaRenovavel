@@ -13,11 +13,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Desabilite CSRF apenas se necessário
+                .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/**").permitAll() // Permite todos os endpoints /api/
-                        .requestMatchers("/user/**").authenticated() // Requer login para /user/
-                        .anyRequest().permitAll() // Permite o restante, se necessário
+                        .requestMatchers("/api/**" ,"/alertas").permitAll()
+                        .requestMatchers("/user/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form.loginPage("/Login")
                         .defaultSuccessUrl("/Index")
